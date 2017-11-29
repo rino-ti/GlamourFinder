@@ -1,6 +1,5 @@
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 
 /*
   Generated class for the MovieProvider provider.
@@ -18,7 +17,11 @@ export class MovieProvider {
   }
 
   getLatesMovies(){
-    return this.http.get(this.baseApiPath + "/movie/popular?api_key=635c4f3c05b93b29f4a75c68f6e323fa");
+    return this.http.get(this.baseApiPath + "/movie/popular?api_key=635c4f3c05b93b29f4a75c68f6e323fa&language=pt-BR");
+  }
+
+  getMovieDetails(filmeid){
+    return this.http.get(this.baseApiPath + `/movie/${filmeid}?api_key=635c4f3c05b93b29f4a75c68f6e323fa&language=pt-BR`);
   }
 
 }
