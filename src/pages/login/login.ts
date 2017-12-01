@@ -21,9 +21,13 @@ import { FilmeDetalhesPage } from '../filme-detalhes/filme-detalhes';
 export class LoginPage {
 
   public lista_filmes = new Array<any>();
+  public page = 1;
+  public page_old = 0;
+
   public loader;
   public refresher;
   public isRefreshing: boolean = false;
+  public infiniteScroll;
 
   constructor(
     public navCtrl: NavController,
@@ -57,35 +61,48 @@ ionViewDidEnter() {
 
 abrirDetalhes(filme){
   console.log(filme);
+  console.log(this.page+ "-" + this.page_old);
+  this.page_old = this.page;
   this.navCtrl.push(FilmeDetalhesPage, { id: filme.id });
 }
 
-carregarFilmes(){
-  this.abreCarregando();
-  this.movieProvider.getLatesMovies().subscribe(
-    data => {
+doInfinite(infiniteScroll) {
+  this.page++;
+ this.infiniteScroll = infiniteScroll;
+ this.carregarFilmes(true);
+}
 
+carregarFilmes(){
+  if( this.page!=this.page_old){
+  this.abreCarregando("Carregando informações...");
+  this.movieProvider.getLatesMovies(this.page).subscribe(
+    data => {
       const response = (data as any);
       const objeto_retorno = JSON.parse(response._body);
-      this.lista_filmes = objeto_retorno.results;
+
+      console.log(this.page);
+
+      if (this.page == 1){
+        this.lista_filmes = objeto_retorno.results;
+      }else{
+      this.lista_filmes = this.lista_filmes.concat(objeto_retorno.results);
+      }
 
       console.log(objeto_retorno);
-
       this.fechaCarregando();
-      if(this.isRefreshing){
+      if (this.isRefreshing) {
         this.refresher.complete();
         this.isRefreshing = false;
       }
     }, error => {
       console.log(error);
       this.fechaCarregando();
-      if(this.isRefreshing){
+      if (this.isRefreshing) {
         this.refresher.complete();
         this.isRefreshing = false;
       }
     }
   )
-
 }
-
+}
 }

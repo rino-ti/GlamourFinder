@@ -11,17 +11,20 @@ import { Injectable } from '@angular/core';
 export class MovieProvider {
 
   private baseApiPath = "https://api.themoviedb.org/3"
+  private baseApiKey = "635c4f3c05b93b29f4a75c68f6e323fa"
+  private baseLeaguage = "&language=pt-BR"
 
   constructor(public http: Http) {
     console.log('Hello MovieProvider Provider');
   }
 
-  getLatesMovies(){
-    return this.http.get(this.baseApiPath + "/movie/popular?api_key=635c4f3c05b93b29f4a75c68f6e323fa&language=pt-BR");
+  getLatesMovies(page = 1){
+    return this.http.get(this.baseApiPath + `/movie/popular?page=${page}&api_key=` + this.baseApiKey + this.baseLeaguage);
   }
 
   getMovieDetails(filmeid){
     return this.http.get(this.baseApiPath + `/movie/${filmeid}?api_key=635c4f3c05b93b29f4a75c68f6e323fa&language=pt-BR`);
   }
+
 
 }
