@@ -17,6 +17,8 @@ import { MovieProvider } from '../../providers/movie/movie';
 export class FilmeDetalhesPage {
   public filme;
   public filmeid;
+  public trailer;
+  public trailerid;  
 
   constructor(
     public navCtrl: NavController, 
@@ -26,11 +28,19 @@ export class FilmeDetalhesPage {
   }
 
   ionViewDidEnter() {
+    this.trailerid = this.navParams.get("id");
+    this.movieProvider.getMovieTrailer(this.trailerid).subscribe(data=>{
+      let retorno =(data as any)._body;
+      this.trailer = JSON.parse(retorno);
+      console.log("ID do trailer",this.trailer);
+    }, error =>{
+      console.log(error);
+    })
     this.filmeid = this.navParams.get("id");
     this.movieProvider.getMovieDetails(this.filmeid).subscribe(data=>{
       let retorno =(data as any)._body;
       this.filme = JSON.parse(retorno);
-      console.log(this.filme);
+      console.log("ID do trailer",this.filmeid);
     }, error =>{
       console.log(error);
   })

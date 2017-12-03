@@ -23,8 +23,11 @@ export class MovieProvider {
   }
 
   getMovieDetails(filmeid){
-    return this.http.get(this.baseApiPath + `/movie/${filmeid}?api_key=635c4f3c05b93b29f4a75c68f6e323fa&language=pt-BR`);
+    return this.http.get(this.baseApiPath + `/movie/${filmeid}?api_key=` + this.baseApiKey + this.baseLeaguage);
   }
 
+  getMovieTrailer(trailerid){
+    return this.http.get(this.baseApiPath + `/movie/${trailerid}/videos?api_key=` + this.baseApiKey + this.baseLeaguage);
+  }
 
 }

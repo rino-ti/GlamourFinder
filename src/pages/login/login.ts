@@ -60,8 +60,6 @@ ionViewDidEnter() {
 }
 
 abrirDetalhes(filme){
-  console.log(filme);
-  console.log(this.page+ "-" + this.page_old);
   this.page_old = this.page;
   this.navCtrl.push(FilmeDetalhesPage, { id: filme.id });
 }
@@ -69,18 +67,16 @@ abrirDetalhes(filme){
 doInfinite(infiniteScroll) {
   this.page++;
  this.infiniteScroll = infiniteScroll;
- this.carregarFilmes(true);
+ this.carregarFilmes();
 }
 
 carregarFilmes(){
   if( this.page!=this.page_old){
-  this.abreCarregando("Carregando informações...");
+  this.abreCarregando();
   this.movieProvider.getLatesMovies(this.page).subscribe(
     data => {
       const response = (data as any);
       const objeto_retorno = JSON.parse(response._body);
-
-      console.log(this.page);
 
       if (this.page == 1){
         this.lista_filmes = objeto_retorno.results;
@@ -88,14 +84,12 @@ carregarFilmes(){
       this.lista_filmes = this.lista_filmes.concat(objeto_retorno.results);
       }
 
-      console.log(objeto_retorno);
       this.fechaCarregando();
       if (this.isRefreshing) {
         this.refresher.complete();
         this.isRefreshing = false;
       }
     }, error => {
-      console.log(error);
       this.fechaCarregando();
       if (this.isRefreshing) {
         this.refresher.complete();
