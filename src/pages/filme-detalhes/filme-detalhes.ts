@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MovieProvider } from '../../providers/movie/movie';
+import { StreamingMedia , StreamingVideoOptions } from '@ionic-native/streaming-media';
+
 
 /**
  * Generated class for the FilmeDetalhesPage page.
@@ -23,9 +25,21 @@ export class FilmeDetalhesPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public movieProvider: MovieProvider
+    public movieProvider: MovieProvider,
+    private streamingMedia: StreamingMedia
   ) {
   }
+
+startVideo(){
+  let options: StreamingVideoOptions = {
+    successCallback: () => { console.log('video played')},
+    errorCallback: (e) => { console.log('error video')},
+    orientation: 'portrait'
+  };
+
+  this.streamingMedia.playVideo('https://www.youtube.com/watch?v=AyS3uw7HZOM', options);
+
+}
 
   ionViewDidEnter() {
     this.trailerid = this.navParams.get("id");
@@ -40,7 +54,6 @@ export class FilmeDetalhesPage {
     this.movieProvider.getMovieDetails(this.filmeid).subscribe(data=>{
       let retorno =(data as any)._body;
       this.filme = JSON.parse(retorno);
-      console.log("ID do trailer",this.filmeid);
     }, error =>{
       console.log(error);
   })

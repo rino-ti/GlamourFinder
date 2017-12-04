@@ -15,7 +15,6 @@ export class MovieProvider {
   private baseLeaguage = "&language=pt-BR"
 
   constructor(public http: Http) {
-    console.log('Hello MovieProvider Provider');
   }
 
   getLatesMovies(page = 1){

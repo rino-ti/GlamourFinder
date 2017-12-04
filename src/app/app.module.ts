@@ -15,6 +15,8 @@ import { IntroPageModule } from '../pages/intro/intro.module';
 import { LoginPageModule } from '../pages/login/login.module';
 import { MovieProvider } from '../providers/movie/movie';
 import { FilmeDetalhesPageModule } from '../pages/filme-detalhes/filme-detalhes.module';
+import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { FilmeDetalhesPageModule } from '../pages/filme-detalhes/filme-detalhes.
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    MovieProvider
+    MovieProvider,
+    StreamingMedia
   ]
 })
 export class AppModule {}
