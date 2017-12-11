@@ -6,6 +6,7 @@ import { IntroPage } from '../pages/intro/intro';
 
 import { ConfigProvider } from '../providers/config/config';
 import { LoginPage } from '../pages/login/login';
+import { HomePage } from '../pages/home/home';
 
 @Component({
   templateUrl: 'app.html',
@@ -31,7 +32,7 @@ export class MyApp {
         this.rootPage = IntroPage
         configProvider.setConfigData(false);
       }else{
-        this.rootPage = LoginPage;
+        this.rootPage = HomePage;
       }
 
       console.log(config)

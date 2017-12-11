@@ -17,13 +17,6 @@ import { MovieProvider } from '../../providers/movie/movie';
 })
 export class FilmeDetalhesPage {
 
-videos: any[] = [
-  {
-    title: 'It a coisa',
-    video: 'www.youtube.com/embed/dD264ZjfKlk',
-  }
-]
-
   public filme;
   public filmeid;
   public trailer;
@@ -41,7 +34,6 @@ videos: any[] = [
     this.movieProvider.getMovieTrailer(this.trailerid).subscribe(data=>{
       let retorno =(data as any)._body;
       this.trailer = JSON.parse(retorno);
-      console.log("ID do trailer",this.trailer);
     }, error =>{
       console.log(error);
     })
