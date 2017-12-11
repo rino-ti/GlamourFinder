@@ -15,7 +15,7 @@ import { IntroPageModule } from '../pages/intro/intro.module';
 import { LoginPageModule } from '../pages/login/login.module';
 import { MovieProvider } from '../providers/movie/movie';
 import { FilmeDetalhesPageModule } from '../pages/filme-detalhes/filme-detalhes.module';
-import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 @NgModule({
@@ -32,7 +32,8 @@ import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-m
     LoginPageModule,
     IntroPageModule,
     HttpModule,
-    FilmeDetalhesPageModule
+    FilmeDetalhesPageModule,
+    PipesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -46,8 +47,7 @@ import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-m
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    MovieProvider,
-    StreamingMedia
+    MovieProvider
   ]
 })
 export class AppModule {}

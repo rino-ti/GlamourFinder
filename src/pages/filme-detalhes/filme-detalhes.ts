@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MovieProvider } from '../../providers/movie/movie';
-import { StreamingMedia , StreamingVideoOptions } from '@ionic-native/streaming-media';
 
 
 /**
@@ -17,29 +16,25 @@ import { StreamingMedia , StreamingVideoOptions } from '@ionic-native/streaming-
   templateUrl: 'filme-detalhes.html',
 })
 export class FilmeDetalhesPage {
+
+videos: any[] = [
+  {
+    title: 'It a coisa',
+    video: 'www.youtube.com/embed/dD264ZjfKlk',
+  }
+]
+
   public filme;
   public filmeid;
   public trailer;
-  public trailerid;  
+  public trailerid; 
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public movieProvider: MovieProvider,
-    private streamingMedia: StreamingMedia
+    public movieProvider: MovieProvider
   ) {
   }
-
-startVideo(){
-  let options: StreamingVideoOptions = {
-    successCallback: () => { console.log('video played')},
-    errorCallback: (e) => { console.log('error video')},
-    orientation: 'portrait'
-  };
-
-  this.streamingMedia.playVideo('https://www.youtube.com/watch?v=AyS3uw7HZOM', options);
-
-}
 
   ionViewDidEnter() {
     this.trailerid = this.navParams.get("id");
