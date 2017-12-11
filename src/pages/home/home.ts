@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoginPage } from '../login/login';
+import { SearchPage } from '../search/search';
 
 /**
  * Generated class for the HomePage page.
@@ -16,15 +17,21 @@ import { LoginPage } from '../login/login';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams
+  ){
   }
 
   abrirPopulares(){
     this.navCtrl.push(LoginPage);
   }
 
+  abrirSearch(){
+    this.navCtrl.push(SearchPage);
+  }
+
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
   }
 
 }

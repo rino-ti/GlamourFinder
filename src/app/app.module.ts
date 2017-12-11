@@ -16,6 +16,8 @@ import { LoginPageModule } from '../pages/login/login.module';
 import { MovieProvider } from '../providers/movie/movie';
 import { FilmeDetalhesPageModule } from '../pages/filme-detalhes/filme-detalhes.module';
 import { PipesModule } from '../pipes/pipes.module';
+import { SearchPageModule } from '../pages/search/search.module';
+
 
 
 @NgModule({
@@ -24,7 +26,7 @@ import { PipesModule } from '../pipes/pipes.module';
     AboutPage,
     ContactPage,
     TabsPage,
-    HomePage
+    HomePage,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,8 @@ import { PipesModule } from '../pipes/pipes.module';
     IntroPageModule,
     HttpModule,
     FilmeDetalhesPageModule,
-    PipesModule
+    PipesModule,
+    SearchPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

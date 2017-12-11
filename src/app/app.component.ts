@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { IntroPage } from '../pages/intro/intro';
 
 import { ConfigProvider } from '../providers/config/config';
-import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 
 @Component({
@@ -34,8 +33,6 @@ export class MyApp {
       }else{
         this.rootPage = HomePage;
       }
-
-      console.log(config)
 
       statusBar.styleDefault();
       splashScreen.hide();
