@@ -7,13 +7,25 @@
 
 <ion-header>
   <ion-navbar>
-    <ion-title>search</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content>
-    <ion-searchbar
->
+    <ion-searchbar #searchBar
+    [showCancelButton]="true"
+    (keyup.enter)="search(searchBar.value)">     
   </ion-searchbar>
-</ion-content>
+ 
+  <ion-card class="card-background-page" *ngFor="let responseSearch of lista_filmes">
+    <img [src]="'https://image.tmdb.org/t/p/w300/' + responseSearch.results[0].poster_path">
+
+    <ion-card-content>
+      <p>{{ responseSearch.overview }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($responseSearch)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content> 

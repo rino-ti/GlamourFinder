@@ -30,8 +30,8 @@ export class MovieProvider {
     return this.http.get(this.baseApiPath + `/movie/${trailerid}/videos?api_key=` + this.baseApiKey + this.baseLeaguage);
   }
 
-  getSearchMovie(search){
-    return this.http.get(this.baseApiPath + `/search/movie?api_key=` + this.baseApiKey + this.baseLeaguage + this.baseSearch + `${search}`);
+  getSearchMovie(searchBar){
+    return this.http.get(this.baseApiPath + `/search/movie?api_key=` + this.baseApiKey + this.baseLeaguage + this.baseSearch + `${searchBar}`);
   }
 
 }
