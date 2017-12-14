@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { MovieProvider } from '../../providers/movie/movie';
 
 /**
@@ -15,57 +15,69 @@ import { MovieProvider } from '../../providers/movie/movie';
   templateUrl: 'search.html',
 })
 export class SearchPage {
-
-  public lista_filmes = new Array<any>();
+  public lista_filmes_search = new Array<any>();
   public page = 1;
   public page_old = 0;
   public responseSearch;
   public loader;
-  public loadingCtrl;
   public isRefreshing;
-  public refresher
+  public refresher;
+  public infiniteScroll
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
-    public movieProvider: MovieProvider
-  ){
+    public movieProvider: MovieProvider,
+    public loadingCtrl: LoadingController
+  ) {
+  }
+
+
+  abreCarregando() {
+    this.loader = this.loadingCtrl.create({
+      content: "Carregando filmes...",
+    });
+    this.loader.present();
+  }
+
+  fechaCarregando() {
+    this.loader.dismiss();
+  }
+
+  doRefresh(refresher) {
+    this.refresher = refresher;
+    this.isRefreshing = true;
+
+    this.search();
+  }
+
+  ionViewDidEnter() {
+    this.search();
+  }
+
+  abrirDetalhes(filme) {
+    this.page_old = this.page;
+    this.navCtrl.push(FilmeDetalhesPage, { id: filme.id });
+  }
+
+  doInfinite(infiniteScroll) {
+    this.page++;
+    this.infiniteScroll = infiniteScroll;
+    this.search();
   }
 
   search(searchBar: string) {
+    if (this.page != this.page_old) {
+      this.abreCarregando();
     this.responseSearch = this.navParams.get(searchBar);
-    this.movieProvider.getSearchMovie(searchBar).subscribe(data=>{
-      let retorno =(data as any)._body;
-      this.responseSearch = JSON.parse(retorno);
-      console.log("Json do search", this.responseSearch);
-    }, error =>{
-      console.log(error);
-    }) 
-}
-
-abreCarregando() {
-  this.loader = this.loadingCtrl.create({
-    content: "Carregando filmes...",
-  });
-  this.loader.present();
-}
-
-fechaCarregando(){
-  this.loader.dismiss();
-}
-
-carregarFilmes(){
-  if( this.page!=this.page_old){
-  this.abreCarregando();
-  this.movieProvider.getSearchMovie(this.page).subscribe(
-    data => {
+    this.movieProvider.getSearchMovie(searchBar).subscribe(data => {
       const response = (data as any);
       const objeto_retorno = JSON.parse(response._body);
 
-      if (this.page == 1){
-        this.lista_filmes = objeto_retorno.results;
-      }else{
-      this.lista_filmes = this.lista_filmes.concat(objeto_retorno.results);
+      if (this.page == 1) {
+        this.lista_filmes_search = objeto_retorno.results;
+      } else {
+        this.lista_filmes_search = this.lista_filmes_search.concat(objeto_retorno.results);
       }
 
       this.fechaCarregando();
@@ -83,9 +95,4 @@ carregarFilmes(){
   )
 }
 }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SearchPage');
-  }
-
 }

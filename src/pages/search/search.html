@@ -17,8 +17,13 @@
     (keyup.enter)="search(searchBar.value)">     
   </ion-searchbar>
  
-  <ion-card class="card-background-page" *ngFor="let responseSearch of lista_filmes">
-    <img [src]="'https://image.tmdb.org/t/p/w300/' + responseSearch.results[0].poster_path">
+  <ion-card class="card-background-page" *ngFor="let responseSearch of lista_filmes_search">
+
+      <ion-item>
+          <h2 class="search_title">{{ responseSearch.title }}</h2>
+          <p class="search_date">{{ responseSearch.release_date }}</p>
+        </ion-item>
+    <img [src]="'https://image.tmdb.org/t/p/w300/' + responseSearch.poster_path">
 
     <ion-card-content>
       <p>{{ responseSearch.overview }}</p>
