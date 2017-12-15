@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { MovieProvider } from '../../providers/movie/movie';
+import { FilmeDetalhesPage } from '../filme-detalhes/filme-detalhes';
 
 /**
  * Generated class for the SearchPage page.
@@ -15,6 +16,9 @@ import { MovieProvider } from '../../providers/movie/movie';
   templateUrl: 'search.html',
 })
 export class SearchPage {
+  searchBar(): any {
+    throw new Error("Method not implemented.");
+  }
   public lista_filmes_search = new Array<any>();
   public page = 1;
   public page_old = 0;
@@ -60,39 +64,40 @@ export class SearchPage {
     this.navCtrl.push(FilmeDetalhesPage, { id: filme.id });
   }
 
+
   doInfinite(infiniteScroll) {
     this.page++;
     this.infiniteScroll = infiniteScroll;
     this.search();
   }
 
-  search(searchBar: string) {
+  search() {
     if (this.page != this.page_old) {
       this.abreCarregando();
-    this.responseSearch = this.navParams.get(searchBar);
-    this.movieProvider.getSearchMovie(searchBar).subscribe(data => {
-      const response = (data as any);
-      const objeto_retorno = JSON.parse(response._body);
+      this.movieProvider.getSearchMovie(this.page).subscribe(data => {
+        const response = (data as any);
+        const objeto_retorno = JSON.parse(response._body);
+        console.log("resposta do objeto", objeto_retorno);
 
-      if (this.page == 1) {
-        this.lista_filmes_search = objeto_retorno.results;
-      } else {
-        this.lista_filmes_search = this.lista_filmes_search.concat(objeto_retorno.results);
-      }
+        if (this.page == 1) {
+          this.lista_filmes_search = objeto_retorno.results;
+        } else {
+          this.lista_filmes_search = this.lista_filmes_search.concat(objeto_retorno.results);
+        }
 
-      this.fechaCarregando();
-      if (this.isRefreshing) {
-        this.refresher.complete();
-        this.isRefreshing = false;
+        this.fechaCarregando();
+        if (this.isRefreshing) {
+          this.refresher.complete();
+          this.isRefreshing = false;
+        }
+      }, error => {
+        this.fechaCarregando();
+        if (this.isRefreshing) {
+          this.refresher.complete();
+          this.isRefreshing = false;
+        }
       }
-    }, error => {
-      this.fechaCarregando();
-      if (this.isRefreshing) {
-        this.refresher.complete();
-        this.isRefreshing = false;
-      }
+      )
     }
-  )
-}
-}
+  }
 }

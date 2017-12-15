@@ -16,7 +16,8 @@
     [showCancelButton]="true"
     (keyup.enter)="search(searchBar.value)">     
   </ion-searchbar>
- 
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+  </ion-refresher>
   <ion-card class="card-background-page" *ngFor="let responseSearch of lista_filmes_search">
 
       <ion-item>
@@ -28,9 +29,10 @@
     <ion-card-content>
       <p>{{ responseSearch.overview }}</p>
     </ion-card-content>
+    <button ion-button block (click)="abrirDetalhes(responseSearch)">Detalhes</button>
   </ion-card>
 
-  <ion-infinite-scroll (ionInfinite)="doInfinite($responseSearch)">
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 </ion-content> 
