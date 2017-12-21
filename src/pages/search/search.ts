@@ -37,26 +37,19 @@ export class SearchPage {
   }
 
 
-  abreCarregando() {
-    this.loader = this.loadingCtrl.create({
-      content: "Carregando filmes...",
-    });
-    this.loader.present();
-  }
 
-  fechaCarregando() {
+  fechaCarregando(){
     this.loader.dismiss();
   }
 
   doRefresh(refresher) {
     this.refresher = refresher;
     this.isRefreshing = true;
-
-    this.search();
+    this.search("Searchbar");
   }
 
   ionViewDidEnter() {
-    this.search();
+    this.search("Searchbar");
   }
 
   abrirDetalhes(filme) {
@@ -68,36 +61,35 @@ export class SearchPage {
   doInfinite(infiniteScroll) {
     this.page++;
     this.infiniteScroll = infiniteScroll;
-    this.search();
+    this.search("Searchbar");
   }
 
-  search() {
+  search(searchBar: string) {
     if (this.page != this.page_old) {
-      this.abreCarregando();
-      this.movieProvider.getSearchMovie(this.page).subscribe(data => {
-        const response = (data as any);
-        const objeto_retorno = JSON.parse(response._body);
-        console.log("resposta do objeto", objeto_retorno);
+    this.responseSearch = this.navParams.get(searchBar);
+    this.movieProvider.getSearchMovie(searchBar).subscribe(data => {
+      const response = (data as any);
+      const objeto_retorno = JSON.parse(response._body);
 
-        if (this.page == 1) {
-          this.lista_filmes_search = objeto_retorno.results;
-        } else {
-          this.lista_filmes_search = this.lista_filmes_search.concat(objeto_retorno.results);
-        }
-
-        this.fechaCarregando();
-        if (this.isRefreshing) {
-          this.refresher.complete();
-          this.isRefreshing = false;
-        }
-      }, error => {
-        this.fechaCarregando();
-        if (this.isRefreshing) {
-          this.refresher.complete();
-          this.isRefreshing = false;
-        }
+      if (this.page == 1) {
+        this.lista_filmes_search = objeto_retorno.results;
+      } else {
+        this.lista_filmes_search = this.lista_filmes_search.concat(objeto_retorno.results);
       }
-      )
+
+      this.fechaCarregando();
+      if (this.isRefreshing) {
+        this.refresher.complete();
+        this.isRefreshing = false;
+      }
+    }, error => {
+      this.fechaCarregando();
+      if (this.isRefreshing) {
+        this.refresher.complete();
+        this.isRefreshing = false;
+      }
     }
-  }
+  )
+}
+}
 }

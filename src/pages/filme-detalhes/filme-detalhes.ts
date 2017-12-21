@@ -16,11 +16,12 @@ import { MovieProvider } from '../../providers/movie/movie';
   templateUrl: 'filme-detalhes.html',
 })
 export class FilmeDetalhesPage {
-
   public filme;
   public filmeid;
   public trailer;
-  public trailerid; 
+  public trailerid;
+  public page = 1;
+  public lista_filmes = new Array<any>(); 
 
   constructor(
     public navCtrl: NavController, 
@@ -32,15 +33,15 @@ export class FilmeDetalhesPage {
   ionViewDidEnter() {
     this.trailerid = this.navParams.get("id");
     this.movieProvider.getMovieTrailer(this.trailerid).subscribe(data=>{
-      let retorno =(data as any)._body;
-      this.trailer = JSON.parse(retorno);
+      let objeto_retorno =(data as any)._body;
+      this.trailer = JSON.parse(objeto_retorno);
     }, error =>{
       console.log(error);
     })
     this.filmeid = this.navParams.get("id");
     this.movieProvider.getMovieDetails(this.filmeid).subscribe(data=>{
-      let retorno =(data as any)._body;
-      this.filme = JSON.parse(retorno);
+      let objeto_retorno =(data as any)._body;
+      this.filme = JSON.parse(objeto_retorno);
     }, error =>{
       console.log(error);
   })
