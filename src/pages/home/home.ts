@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { SearchPage } from '../search/search';
+import { CartazPage } from '../cartaz/cartaz';
 
 /**
  * Generated class for the HomePage page.
@@ -29,6 +30,10 @@ export class HomePage {
 
   abrirSearch(){
     this.navCtrl.push(SearchPage);
+  }
+
+  abrirCartaz(){
+    this.navCtrl.push(CartazPage);
   }
 
   ionViewDidLoad() {

@@ -17,6 +17,9 @@ import { MovieProvider } from '../providers/movie/movie';
 import { FilmeDetalhesPageModule } from '../pages/filme-detalhes/filme-detalhes.module';
 import { PipesModule } from '../pipes/pipes.module';
 import { SearchPageModule } from '../pages/search/search.module';
+import { CartazPageModule } from '../pages/cartaz/cartaz.module';
+import { PersonPageModule } from '../pages/person/person.module';
+
 
 
 
@@ -26,7 +29,7 @@ import { SearchPageModule } from '../pages/search/search.module';
     AboutPage,
     ContactPage,
     TabsPage,
-    HomePage,
+    HomePage
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,9 @@ import { SearchPageModule } from '../pages/search/search.module';
     HttpModule,
     FilmeDetalhesPageModule,
     PipesModule,
-    SearchPageModule
+    SearchPageModule,
+    CartazPageModule,
+    PersonPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

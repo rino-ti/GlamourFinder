@@ -6,6 +6,7 @@
 -->
 
 <ion-header>
+
   <ion-navbar>
   </ion-navbar>
 </ion-header>
@@ -16,10 +17,6 @@
       <ion-col col-md-4>
         <ion-card *ngIf="filme">
           <ion-item>
-            <!--<ion-avatar item-start>
-                      <img src="img/marty-avatar.png">
-                    </ion-avatar>
-                  -->
             <h2 class="login_title">{{ filme.title }}</h2>
             <p class="login_date">{{ filme.release_date }}</p>
           </ion-item>
@@ -29,34 +26,92 @@
           <ion-card-content>
             <p>{{ filme.overview }}</p>
           </ion-card-content>
-
           <ion-card-content>
-            <h2 class="login_language">Idioma original:
-              <p>{{ filme.original_language }}</p>
-            </h2>
+            <h2 class="login_title_original">Titulo original:</h2>
+            <p>{{ filme.original_title }}</p>
           </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-md-4>
+        <ion-card *ngIf="trailer">
           <ion-card-content>
-            <h2 class="login_title_original">Titulo original:
-              <p>{{ filme.original_title }}</p>
+            <h2 class="login_title_original">Trailer original:
+              <iframe width="100%" height="250" [src]="'http://www.youtube.com/embed/' + trailer.results[0].key | youtube" frameborder="0"
+                allowfullscreen></iframe>
             </h2>
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
-
-
   <ion-grid>
     <ion-row>
       <ion-col col-md-4>
-        <ion-card *ngIf="trailer">
-          <ion-card-content>
-            <iframe width="100%" height="250" [src]="'http://www.youtube.com/embed/' + trailer.results[0].key | youtube" frameborder="0" allowfullscreen></iframe>
-          </ion-card-content> 
-        </ion-card> 
-      </ion-col>
-    </ion-row>  
-  </ion-grid>
+        <ion-card *ngIf="cast">
+          <h2 class="name_cast">Elenco Principal:</h2>
 
+          <ion-list>
+            <ion-item>
+              <ion-avatar item-start>
+                <img [src]="'https://image.tmdb.org/t/p/w185/' + cast.cast[0].profile_path">
+              </ion-avatar>
+              <h2>{{ cast.cast[0].name }}</h2>
+              <p>Como: {{ cast.cast[0].character }}</p>
+              <button ion-button clear item-end (click)="abrirDetalhesPerson(cast.cast[0])">View</button>
+            </ion-item>
+          </ion-list>
+
+          <ion-list>
+            <ion-item>
+              <ion-avatar item-start>
+                <img [src]="'https://image.tmdb.org/t/p/w185/' + cast.cast[2].profile_path">
+              </ion-avatar>
+              <h2>{{ cast.cast[2].name }}</h2>
+              <p>Como: {{ cast.cast[2].character }}</p>
+              <button ion-button clear item-end (click)="abrirDetalhesPerson(cast.cast[2])">View</button>
+            </ion-item>
+          </ion-list>
+
+          <ion-list>
+              <ion-item>
+                <ion-avatar item-start>
+                  <img [src]="'https://image.tmdb.org/t/p/w185/' + cast.cast[4].profile_path">
+                </ion-avatar>
+                <h2>{{ cast.cast[4].name }}</h2>
+                <p>Como: {{ cast.cast[4].character }}</p>
+                <button ion-button clear item-end (click)="abrirDetalhesPerson(cast.cast[4])">View</button>
+              </ion-item>
+            </ion-list>
+
+            <ion-list>
+                <ion-item>
+                  <ion-avatar item-start>
+                    <img [src]="'https://image.tmdb.org/t/p/w185/' + cast.cast[5].profile_path">
+                  </ion-avatar>
+                  <h2>{{ cast.cast[5].name }}</h2>
+                  <p>Como: {{ cast.cast[5].character }}</p>
+                  <button ion-button clear item-end (click)="abrirDetalhesPerson(cast.cast[5])">View</button>
+                </ion-item>
+              </ion-list>
+
+              <ion-list>
+                  <ion-item>
+                    <ion-avatar item-start>
+                      <img [src]="'https://image.tmdb.org/t/p/w185/' + cast.cast[30].profile_path">
+                    </ion-avatar>
+                    <h2>{{ cast.cast[30].name }}</h2>
+                    <p>Como: {{ cast.cast[30].character }}</p>
+                    <button ion-button clear item-end (click)="abrirDetalhesPerson(cast.cast[30])">View</button>
+                  </ion-item>
+                </ion-list>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>

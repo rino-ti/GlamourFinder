@@ -14,6 +14,7 @@ export class MovieProvider {
   private baseApiKey = "635c4f3c05b93b29f4a75c68f6e323fa"
   private baseLeaguage = "&language=pt-BR"
   private baseSearch = "&query="
+  private baseRegion = "&region=BR"
 
   constructor(public http: Http) {
   }
@@ -32,6 +33,18 @@ export class MovieProvider {
 
   getSearchMovie(searchBar){
     return this.http.get(this.baseApiPath + `/search/movie?api_key=` + this.baseApiKey + this.baseLeaguage + this.baseSearch + `${searchBar}`);
+  }
+
+  getMovieCartaz(page = 1){
+    return this.http.get(this.baseApiPath + `/movie/now_playing?api_key=` + this.baseApiKey + this.baseLeaguage + `&page=${page}` + this.baseRegion); 
+  }
+
+  getMovieCast(castid){
+    return this.http.get(this.baseApiPath + `/movie/${castid}/credits?api_key=` + this.baseApiKey + this.baseLeaguage + this.baseRegion);
+  }
+
+  getCastPerson(personid){
+    return this.http.get(this.baseApiPath + `/person/${personid}?api_key=` + this.baseApiKey + this.baseLeaguage);
   }
 
 }
