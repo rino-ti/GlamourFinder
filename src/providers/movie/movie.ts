@@ -15,6 +15,10 @@ export class MovieProvider {
   private baseLeaguage = "&language=pt-BR"
   private baseSearch = "&query="
   private baseRegion = "&region=BR"
+  private baseApiIngresso = "https://api-content.ingresso.com/v0"
+  private baseApiIngressoCity = "/sessions/city/"
+  private baseApiIngressoTheater = "/theater/"
+  private baseApiIngressoPartnership = "/partnership/"
 
   constructor(public http: Http) {
   }
@@ -45,6 +49,10 @@ export class MovieProvider {
 
   getCastPerson(personid){
     return this.http.get(this.baseApiPath + `/person/${personid}?api_key=` + this.baseApiKey + this.baseLeaguage);
+  }
+
+  getSessionCinemark(cityid,theaterId,partnership){
+    return this.http.get(this.baseApiIngresso + this.baseApiIngressoCity +`${cityid}` + this.baseApiIngressoTheater + `${theaterId}` + this.baseApiIngressoPartnership + `${partnership}`);
   }
 
 }
