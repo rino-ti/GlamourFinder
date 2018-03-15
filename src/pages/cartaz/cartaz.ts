@@ -28,6 +28,7 @@ public lista_filmes = new Array<any>();
   public refresher;
   public isRefreshing: boolean = false;
   public infiniteScroll;
+  public cinemark;
 
   constructor(
     public navCtrl: NavController,
@@ -73,15 +74,17 @@ doInfinite(infiniteScroll) {
 carregarFilmes(){
   if( this.page!=this.page_old){
   this.abreCarregando();
-  this.movieProvider.getMovieCartaz(this.page).subscribe(
+  this.movieProvider.getSessionCinemark2().subscribe(
     data => {
       const response = (data as any);
       const objeto_retorno = JSON.parse(response._body);
+      this.cinemark = objeto_retorno;
+      console.log("log session cinemark",this.cinemark)
 
       if (this.page == 1){
-        this.lista_filmes = objeto_retorno.results;
+        this.lista_filmes = objeto_retorno;
       }else{
-      this.lista_filmes = this.lista_filmes.concat(objeto_retorno.results);
+      this.lista_filmes = this.lista_filmes.concat(objeto_retorno);
       }
 
       this.fechaCarregando();

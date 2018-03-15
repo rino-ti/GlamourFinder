@@ -13,28 +13,28 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-card *ngFor="let filme of lista_filmes">
+  <ion-card *ngFor="let cinemark of lista_filmes">
 
     <ion-item>
       <!--<ion-avatar item-start>
               <img src="img/marty-avatar.png">
             </ion-avatar>
           -->
-      <h2 class="login_title">{{ filme.title }}</h2>
-      <p class="login_date">{{ filme.release_date }}</p>
+      <h2 class="login_title">{{ cinemark.movies[0].title }}</h2>
+      <p class="login_date">{{ cinemark.date }}</p>
     </ion-item>
 
-    <img [src]="'https://image.tmdb.org/t/p/w300/' + filme.backdrop_path">
+    <img [src]="cinemark.movies[0].images[0].url">
 
     <ion-card-content>
-      <p>{{ filme.overview }}</p>
+      <p>{{ cinemark }}</p>
     </ion-card-content>
 
     <ion-row>
       <ion-col>
         <button ion-button icon-left clear small>
           <ion-icon name="thumbs-up"></ion-icon>
-          <div class="login_like">{{ filme.vote_count }}</div>
+          <div class="login_like">{{ cinemark }}</div>
         </button>
       </ion-col>
       <ion-col>

@@ -1,8 +1,15 @@
 {
   "name": "GlamourFinder",
+  "email": "",
   "app_id": "",
-  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/v0",
+      "proxyUrl": "https://api-content.ingresso.com/v0"
+    }
+  ],
   "integrations": {
     "cordova": {}
-  }
+  },
+  "type": "ionic-angular"
 }
