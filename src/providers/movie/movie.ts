@@ -1,6 +1,5 @@
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { Platform } from 'ionic-angular';
 
 /*
   Generated class for the MovieProvider provider.
@@ -16,18 +15,9 @@ export class MovieProvider {
   private baseLeaguage = "&language=pt-BR"
   private baseSearch = "&query="
   private baseRegion = "&region=BR"
-  private baseApiIngresso = "/v0"
-  private baseApiIngressoCity = "/sessions/city/"
-  private baseApiIngressoTheater = "/theater/"
-  private baseApiIngressoPartnership = "/partnership/"
 
-  constructor(public http: Http,
-    private _plataform: Platform
-  
-  ) {
-    if(this._plataform.is("cordova")){
-      this.baseApiIngresso = "https://api-content.ingresso.com"
-    }
+  constructor(public http: Http) {
+    
   }
 
   getLatesMovies(page = 1){
@@ -56,14 +46,6 @@ export class MovieProvider {
 
   getCastPerson(personid){
     return this.http.get(this.baseApiPath + `/person/${personid}?api_key=` + this.baseApiKey + this.baseLeaguage);
-  }
-
-  getSessionCinemark(cityid,theaterId,partnership){
-    return this.http.get(this.baseApiIngresso + this.baseApiIngressoCity +`${cityid}` + this.baseApiIngressoTheater + `${theaterId}` + this.baseApiIngressoPartnership + `${partnership}`);
-  }
-
-  getSessionCinemark2(){
-    return this.http.get(this.baseApiIngresso + this.baseApiIngressoCity +`1` + this.baseApiIngressoTheater + `120` + this.baseApiIngressoPartnership + `cinemark`);
   }
 
 }

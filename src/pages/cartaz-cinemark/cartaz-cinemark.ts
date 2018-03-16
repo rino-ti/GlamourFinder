@@ -4,7 +4,7 @@ import { FilmeDetalhesPage } from '../filme-detalhes/filme-detalhes';
 import { IngressoComProvider } from '../../providers/ingresso-com/ingresso-com';
 
 /**
- * Generated class for the CartazPage page.
+ * Generated class for the CartazCinemarkPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,15 +12,15 @@ import { IngressoComProvider } from '../../providers/ingresso-com/ingresso-com';
 
 @IonicPage()
 @Component({
-  selector: 'page-cartaz',
-  templateUrl: 'cartaz.html',
+  selector: 'page-cartaz-cinemark',
+  templateUrl: 'cartaz-cinemark.html',  
   providers: [
     IngressoComProvider
   ]
 })
-export class CartazPage {
+export class CartazCinemarkPage {
 
-public lista_filmes = new Array<any>();
+  public lista_filmes = new Array<any>();
   public page = 1;
   public page_old = 0;
 
@@ -31,7 +31,7 @@ public lista_filmes = new Array<any>();
   public cinemark;
 
   constructor(
-    public navCtrl: NavController,
+    public navCtrl: NavController, 
     public navParams: NavParams,
     private ingressocomProvider: IngressoComProvider,
     public loadingCtrl: LoadingController

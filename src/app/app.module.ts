@@ -19,6 +19,8 @@ import { PipesModule } from '../pipes/pipes.module';
 import { SearchPageModule } from '../pages/search/search.module';
 import { CartazPageModule } from '../pages/cartaz/cartaz.module';
 import { PersonPageModule } from '../pages/person/person.module';
+import { IngressoComProvider } from '../providers/ingresso-com/ingresso-com';
+import { CartazCinemarkPageModule } from '../pages/cartaz-cinemark/cartaz-cinemark.module';
 
 
 
@@ -41,7 +43,8 @@ import { PersonPageModule } from '../pages/person/person.module';
     PipesModule,
     SearchPageModule,
     CartazPageModule,
-    PersonPageModule
+    PersonPageModule,
+    CartazCinemarkPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -55,7 +58,8 @@ import { PersonPageModule } from '../pages/person/person.module';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    MovieProvider
+    MovieProvider,
+    IngressoComProvider
   ]
 })
 export class AppModule {}
