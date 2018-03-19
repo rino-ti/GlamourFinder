@@ -14,24 +14,25 @@
   <ion-list>
     <ion-item>
       <ion-label>Estado</ion-label>
-      <ion-select [(ngModel)]="estado">
-        <ion-option value="sp" selected="true">São Paulo</ion-option>
-        <ion-option value="sc">Santa Catarina</ion-option>
-        <ion-option value="rs">Rio Grande do Sul</ion-option>
-        <ion-option value="rr">Roraima</ion-option>
+      <ion-select [(ngModel)]="estado" (ionChange)="buscaCidade($event)">
+          <ion-option *ngFor="let state of lista_state" [value]="state.uf">{{state.name}}</ion-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
+        <ion-label>Cidade</ion-label>
+        <ion-select [(ngModel)]="city" (ionChange)="buscaCinema($event)">
+            <ion-option *ngFor="let cidade of lista_cidade " [value]="cidade.id">{{cidade.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+    <ion-item>
       <ion-label>Cinema</ion-label>
-      <ion-select [(ngModel)]="cinema">
-        <ion-option value="cinemark" selected="true">Cinemark</ion-option>
-        <ion-option value="cineplex">Cineplex</ion-option>
-        <ion-option value="uci">UCI</ion-option>
-        <ion-option value="cinearaujo">Cinearaujo</ion-option>
+      <ion-select [(ngModel)]="cinema" >
+          <ion-option *ngFor="let cinema of lista_cinema " [value]="{value: cinema.id, corpotarion: cinema.corporation}">{{cinema.name}}</ion-option>
       </ion-select>
     </ion-item>
-
+ 
   </ion-list>
-  <button ion-button block (click)="buscarCartaz()">Buscar</button>
+  <button ion-button block (click)="buscaCartaz(city, cinema)">Buscar</button>
 </ion-content>

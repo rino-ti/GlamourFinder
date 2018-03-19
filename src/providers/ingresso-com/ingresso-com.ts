@@ -25,12 +25,24 @@ export class IngressoComProvider {
     }
   }
 
-  getSessionCinemark(cityid,theaterId,partnership){
+  getSessionCinemark(cineid,city){
     return this.http.get(this.baseApiIngresso + this.baseApiIngressoCity +`${cityid}` + this.baseApiIngressoTheater + `${theaterId}` + this.baseApiIngressoPartnership + `${partnership}`);
   }
 
   getSessionCinemark2(){
     return this.http.get(this.baseApiIngresso + this.baseApiIngressoCity +`1` + this.baseApiIngressoTheater + `120` + this.baseApiIngressoPartnership + `cinemark`);
+  }
+
+  getStates(){
+    return this.http.get(this.baseApiIngresso + `/states`);
+  }
+
+  getCidade(response){
+    return this.http.get(this.baseApiIngresso + `/states/` + `${response}` );
+  }
+
+  getCinema(response){
+    return this.http.get(this.baseApiIngresso + `/theaters/city/` + `${response}` );
   }
 
 }
