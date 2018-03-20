@@ -35,11 +35,10 @@
 
     <ion-item>
         <ion-label>Data</ion-label>
-        <ion-select [(ngModel)]="data" >
-            <ion-option *ngFor="let data of lista_data " [value]="data.dayOfWeek">{{data.dayOfWeek + ' ' + data.dateFormatted}}</ion-option>
+        <ion-select [(ngModel)]="datas" (ionChange)="buscaCartaz($event)" multiple="false">
+            <ion-option *ngFor="let data of lista_data " [value]="cine">{{data.dayOfWeek + ' ' + data.dateFormatted}}</ion-option>
         </ion-select>
       </ion-item>
  
   </ion-list>
-  <button ion-button block (click)="buscaCartaz(cine)">Buscar</button>
 </ion-content>

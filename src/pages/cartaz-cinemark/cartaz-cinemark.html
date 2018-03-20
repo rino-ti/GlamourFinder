@@ -13,18 +13,17 @@
 <ion-refresher (ionRefresh)="doRefresh($event)">
   <ion-refresher-content></ion-refresher-content>
 </ion-refresher>
-<ion-card *ngFor="let cinemark of lista_filmes">
+<ion-card *ngFor="let filmes of lista_filme">
 
   <ion-item>
     <!--<ion-avatar item-start>
             <img src="img/marty-avatar.png">
           </ion-avatar>
         -->
-    <h2 class="login_title">{{ cinemark.movies[0].title }}</h2>
-    <p class="login_date">{{ cinemark.date }}</p>
+    <h2 class="login_title">{{ filmes.title }}</h2>
   </ion-item>
 
-  <img [src]="cinemark.movies[0].images[0].url">
+  <img [src]="filmes.url">
 
   <ion-card-content>
     <p>{{ cinemark }}</p>
@@ -34,7 +33,7 @@
     <ion-col>
       <button ion-button icon-left clear small>
         <ion-icon name="thumbs-up"></ion-icon>
-        <div class="login_like">{{ cinemark }}</div>
+        <div class="login_like">{{ data }}</div>
       </button>
     </ion-col>
     <ion-col>

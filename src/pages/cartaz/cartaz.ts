@@ -46,11 +46,11 @@ export class CartazPage {
     this.buscaState();
   }
 
-  buscaCartaz(cityid: any, cine: any) {
+  buscaCartaz(datas) {
     this.page_old = this.page;
-    this.navCtrl.push(CartazCinemarkPage)
-    console.log("push cartaz cinemark", cityid, cine);
-  }
+    this.navCtrl.push(CartazCinemarkPage, {response: datas});
+    console.log ("log das infos para getprovider",datas)
+  } 
 
   buscaState() {
     this.ingressocomProvider.getStates().subscribe(
@@ -58,7 +58,6 @@ export class CartazPage {
         const response = (data as any);
         const objeto_retorno = JSON.parse(response._body);
         this.state = objeto_retorno;
-        console.log("log state ", this.state)
 
         if (this.page == 1) {
           this.lista_state = objeto_retorno;
@@ -75,7 +74,6 @@ export class CartazPage {
         const response = (data as any);
         const objeto_retorno = JSON.parse(response._body);
         this.cidade = objeto_retorno;
-        console.log("log cidade ", this.cidade)
 
         if (this.page == 1) {
           this.lista_cidade = objeto_retorno.cities;
@@ -92,7 +90,6 @@ export class CartazPage {
         const response = (data as any);
         const objeto_retorno = JSON.parse(response._body);
         this.cinema = objeto_retorno;
-        console.log("log cinema ", this.cinema)
 
         if (this.page == 1) {
           this.lista_cinema = objeto_retorno;
@@ -103,13 +100,11 @@ export class CartazPage {
   }
 
   buscaData(response: any) {
-    console.log ("esse e o geral em json",response)
     this.ingressocomProvider.getSessionCinemark(response.cityid,response.id,response.corpotarion).subscribe(
       data => {
         const response = (data as any);
         const objeto_retorno = JSON.parse(response._body);
         this.data = objeto_retorno;
-        console.log("log data ", this.data)
 
         if (this.page == 1) {
           this.lista_data = objeto_retorno;

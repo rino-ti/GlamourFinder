@@ -20,7 +20,6 @@ import { IngressoComProvider } from '../../providers/ingresso-com/ingresso-com';
 })
 export class CartazCinemarkPage {
 
-  public lista_filmes = new Array<any>();
   public page = 1;
   public page_old = 0;
 
@@ -28,7 +27,10 @@ export class CartazCinemarkPage {
   public refresher;
   public isRefreshing: boolean = false;
   public infiniteScroll;
-  public cinemark;
+  public filmes;
+  public lista_filme = new Array<any>();
+  public responseDatas;
+  public response;
 
   constructor(
     public navCtrl: NavController, 
@@ -53,11 +55,11 @@ export class CartazCinemarkPage {
     this.refresher = refresher;
     this.isRefreshing = true;
 
-    this.carregarFilmes();
+    this.carregarFilmes("response");
   }
 
 ionViewDidEnter() {
-  this.carregarFilmes();
+  this.carregarFilmes("response");
 }
 
 abrirDetalhes(filme){
@@ -68,38 +70,26 @@ abrirDetalhes(filme){
 doInfinite(infiniteScroll) {
   this.page++;
  this.infiniteScroll = infiniteScroll;
- this.carregarFilmes();
+ this.carregarFilmes("response");
 }
 
-carregarFilmes(){
-  if( this.page!=this.page_old){
-  this.abreCarregando();
-  this.ingressocomProvider.getSessionCinemark2().subscribe(
-    data => {
-      const response = (data as any);
-      const objeto_retorno = JSON.parse(response._body);
-      this.cinemark = objeto_retorno;
-      console.log("log session cinemark",this.cinemark)
+  carregarFilmes(response: any) {
+    console.log("log do response",response)
+    if (this.page != this.page_old) {
+    this.responseDatas = this.navParams.get("datas");
+    this.ingressocomProvider.getSessionCinemark(response.cityid,response.id,response.corpotarion).subscribe(
+      data => {
+        const response = (data as any);
+        const objeto_retorno = JSON.parse(response._body);
+        this.filmes = objeto_retorno;
+        console.log("log dos filmes", this.filmes)
 
-      if (this.page == 1){
-        this.lista_filmes = objeto_retorno;
-      }else{
-      this.lista_filmes = this.lista_filmes.concat(objeto_retorno);
-      }
-
-      this.fechaCarregando();
-      if (this.isRefreshing) {
-        this.refresher.complete();
-        this.isRefreshing = false;
-      }
-    }, error => {
-      this.fechaCarregando();
-      if (this.isRefreshing) {
-        this.refresher.complete();
-        this.isRefreshing = false;
-      }
+        if (this.page == 1) {
+          this.lista_filme = objeto_retorno;
+        } else {
+          this.lista_filme = this.lista_filme.concat(objeto_retorno);
+        }
+      })
     }
-  )
-}
-}
+  }
 }
