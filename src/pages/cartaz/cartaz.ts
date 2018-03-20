@@ -20,7 +20,6 @@ import { IngressoComProvider } from '../../providers/ingresso-com/ingresso-com';
 })
 export class CartazPage {
 
-
   public page = 1;
   public page_old = 0;
   public state;
@@ -31,6 +30,9 @@ export class CartazPage {
   public responseCinema;
   public cinema;
   public lista_cinema;
+  public responseData;
+  public data;
+  public lista_data;
 
 
   constructor(
@@ -44,60 +46,77 @@ export class CartazPage {
     this.buscaState();
   }
 
-buscaCartaz(cityid: any,cine:any){
-  this.page_old = this.page;
-  this.navCtrl.push(CartazCinemarkPage)
-  console.log ("push cartaz cinemark", cityid ,cine);
-}
+  buscaCartaz(cityid: any, cine: any) {
+    this.page_old = this.page;
+    this.navCtrl.push(CartazCinemarkPage)
+    console.log("push cartaz cinemark", cityid, cine);
+  }
 
-buscaState(){
-  this.ingressocomProvider.getStates().subscribe(
-    data => {
-      const response = (data as any);
-      const objeto_retorno = JSON.parse(response._body);
-      this.state = objeto_retorno;
-      console.log("log state ",this.state)
+  buscaState() {
+    this.ingressocomProvider.getStates().subscribe(
+      data => {
+        const response = (data as any);
+        const objeto_retorno = JSON.parse(response._body);
+        this.state = objeto_retorno;
+        console.log("log state ", this.state)
 
-      if(this.page == 1){
-        this.lista_state = objeto_retorno;
-      }else{
-        this.lista_state = this.lista_state.concat(objeto_retorno);
-      }
-})
-}
+        if (this.page == 1) {
+          this.lista_state = objeto_retorno;
+        } else {
+          this.lista_state = this.lista_state.concat(objeto_retorno);
+        }
+      })
+  }
 
-buscaCidade(response: any){
-  this.responseState = this.navParams.get(response);
-  this.ingressocomProvider.getCidade(response).subscribe(
-    data => {
-      const response = (data as any);
-      const objeto_retorno = JSON.parse(response._body);
-      this.cidade = objeto_retorno;
-      console.log("log cidade ",this.cidade)
+  buscaCidade(response: any) {
+    this.responseState = this.navParams.get(response);
+    this.ingressocomProvider.getCidade(response).subscribe(
+      data => {
+        const response = (data as any);
+        const objeto_retorno = JSON.parse(response._body);
+        this.cidade = objeto_retorno;
+        console.log("log cidade ", this.cidade)
 
-      if(this.page == 1){
-        this.lista_cidade = objeto_retorno.cities;
-      }else{
-        this.lista_cidade = this.lista_cidade.concat(objeto_retorno.cities);
-      }
-})
-}
+        if (this.page == 1) {
+          this.lista_cidade = objeto_retorno.cities;
+        } else {
+          this.lista_cidade = this.lista_cidade.concat(objeto_retorno.cities);
+        }
+      })
+  }
 
-buscaCinema(response: any){
-  this.responseCinema = this.navParams.get(response);
-  this.ingressocomProvider.getCinema(response).subscribe(
-    data => {
-      const response = (data as any);
-      const objeto_retorno = JSON.parse(response._body);
-      this.cinema = objeto_retorno;
-      console.log("log cinema ",this.cinema)
+  buscaCinema(response: any) {
+    this.responseCinema = this.navParams.get(response);
+    this.ingressocomProvider.getCinema(response).subscribe(
+      data => {
+        const response = (data as any);
+        const objeto_retorno = JSON.parse(response._body);
+        this.cinema = objeto_retorno;
+        console.log("log cinema ", this.cinema)
 
-      if(this.page == 1){
-        this.lista_cinema = objeto_retorno;
-      }else{
-        this.lista_cinema = this.lista_cidade.concat(objeto_retorno);
-      }
-})
-}
+        if (this.page == 1) {
+          this.lista_cinema = objeto_retorno;
+        } else {
+          this.lista_cinema = this.lista_cidade.concat(objeto_retorno);
+        }
+      })
+  }
+
+  buscaData(response: any) {
+    console.log ("esse e o geral em json",response)
+    this.ingressocomProvider.getSessionCinemark(response.cityid,response.id,response.corpotarion).subscribe(
+      data => {
+        const response = (data as any);
+        const objeto_retorno = JSON.parse(response._body);
+        this.data = objeto_retorno;
+        console.log("log data ", this.data)
+
+        if (this.page == 1) {
+          this.lista_data = objeto_retorno;
+        } else {
+          this.lista_data = this.lista_data.concat(objeto_retorno);
+        }
+      })
+  }
 
 }

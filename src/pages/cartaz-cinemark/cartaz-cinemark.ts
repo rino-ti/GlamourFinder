@@ -19,9 +19,6 @@ import { IngressoComProvider } from '../../providers/ingresso-com/ingresso-com';
   ]
 })
 export class CartazCinemarkPage {
-  responseCine(): any {
-    throw new Error("Method not implemented.");
-  }
 
   public lista_filmes = new Array<any>();
   public page = 1;
@@ -32,8 +29,6 @@ export class CartazCinemarkPage {
   public isRefreshing: boolean = false;
   public infiniteScroll;
   public cinemark;
-  public responseCartaz;
-  public lista_cartaz;
 
   constructor(
     public navCtrl: NavController, 
@@ -43,7 +38,12 @@ export class CartazCinemarkPage {
   ) {
   }
 
-
+  abreCarregando() {
+    this.loader = this.loadingCtrl.create({
+      content: "Carregando filmes...",
+    });
+    this.loader.present();
+  }
 
   fechaCarregando(){
     this.loader.dismiss();
@@ -52,36 +52,39 @@ export class CartazCinemarkPage {
   doRefresh(refresher) {
     this.refresher = refresher;
     this.isRefreshing = true;
-    this.cartaz("responseCartaz");
+
+    this.carregarFilmes();
   }
 
-  ionViewDidEnter() {
-    this.cartaz("responseCartaz");
-  }
+ionViewDidEnter() {
+  this.carregarFilmes();
+}
 
-  abrirDetalhes(filme) {
-    this.page_old = this.page;
-    this.navCtrl.push(FilmeDetalhesPage, { id: filme.id });
-  }
+abrirDetalhes(filme){
+  this.page_old = this.page;
+  this.navCtrl.push(FilmeDetalhesPage, { id: filme.id });
+}
 
+doInfinite(infiniteScroll) {
+  this.page++;
+ this.infiniteScroll = infiniteScroll;
+ this.carregarFilmes();
+}
 
-  doInfinite(infiniteScroll) {
-    this.page++;
-    this.infiniteScroll = infiniteScroll;
-    this.cartaz("responseCartaz");
-  }
-
-  cartaz(cityid: any,cine:any) {
-    if (this.page != this.page_old) {
-    this.responseCartaz = this.navParams.get('cityid,cine');
-    this.ingressocomProvider.getSessionCinemark(cityid, cine).subscribe(data => {
+carregarFilmes(){
+  if( this.page!=this.page_old){
+  this.abreCarregando();
+  this.ingressocomProvider.getSessionCinemark2().subscribe(
+    data => {
       const response = (data as any);
       const objeto_retorno = JSON.parse(response._body);
+      this.cinemark = objeto_retorno;
+      console.log("log session cinemark",this.cinemark)
 
-      if (this.page == 1) {
-        this.lista_cartaz = objeto_retorno;
-      } else {
-        this.lista_cartaz = this.lista_cartaz.concat(objeto_retorno);
+      if (this.page == 1){
+        this.lista_filmes = objeto_retorno;
+      }else{
+      this.lista_filmes = this.lista_filmes.concat(objeto_retorno);
       }
 
       this.fechaCarregando();

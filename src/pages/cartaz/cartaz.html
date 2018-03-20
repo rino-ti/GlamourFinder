@@ -21,18 +21,25 @@
 
     <ion-item>
         <ion-label>Cidade</ion-label>
-        <ion-select [(ngModel)]="city" (ionChange)="buscaCinema($event)">
+        <ion-select [(ngModel)]="cityid" (ionChange)="buscaCinema($event)">
             <ion-option *ngFor="let cidade of lista_cidade " [value]="cidade.id">{{cidade.name}}</ion-option>
         </ion-select>
       </ion-item>
 
     <ion-item>
       <ion-label>Cinema</ion-label>
-      <ion-select [(ngModel)]="cinema" >
-          <ion-option *ngFor="let cinema of lista_cinema " [value]="{value: cinema.id, corpotarion: cinema.corporation}">{{cinema.name}}</ion-option>
+      <ion-select [(ngModel)]="cine"  (ionChange)="buscaData($event)">
+          <ion-option *ngFor="let cinema of lista_cinema " [value]="{id: cinema.id, corpotarion: cinema.corporation, cityid: cityid}">{{cinema.name}}</ion-option>
       </ion-select>
     </ion-item>
+
+    <ion-item>
+        <ion-label>Data</ion-label>
+        <ion-select [(ngModel)]="data" >
+            <ion-option *ngFor="let data of lista_data " [value]="data.dayOfWeek">{{data.dayOfWeek + ' ' + data.dateFormatted}}</ion-option>
+        </ion-select>
+      </ion-item>
  
   </ion-list>
-  <button ion-button block (click)="buscaCartaz(city, cinema)">Buscar</button>
+  <button ion-button block (click)="buscaCartaz(cine)">Buscar</button>
 </ion-content>

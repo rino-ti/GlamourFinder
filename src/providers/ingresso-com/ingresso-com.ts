@@ -25,8 +25,8 @@ export class IngressoComProvider {
     }
   }
 
-  getSessionCinemark(cineid,city){
-    return this.http.get(this.baseApiIngresso + this.baseApiIngressoCity +`${cityid}` + this.baseApiIngressoTheater + `${theaterId}` + this.baseApiIngressoPartnership + `${partnership}`);
+  getSessionCinemark(cityid,id,corpotarion){
+    return this.http.get(this.baseApiIngresso + this.baseApiIngressoCity +`${cityid}` + this.baseApiIngressoTheater + `${id}` + this.baseApiIngressoPartnership + `${corpotarion}`);
   }
 
   getSessionCinemark2(){
