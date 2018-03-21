@@ -67,7 +67,8 @@ export class SearchPage {
   search(searchBar: string) {
     if (this.page != this.page_old) {
     this.responseSearch = this.navParams.get(searchBar);
-    this.movieProvider.getSearchMovie(searchBar).subscribe(data => {
+    this.movieProvider.getSearchMovie(searchBar).subscribe(
+      data => {
       const response = (data as any);
       const objeto_retorno = JSON.parse(response._body);
 

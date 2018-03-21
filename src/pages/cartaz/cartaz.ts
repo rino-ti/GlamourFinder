@@ -33,6 +33,7 @@ export class CartazPage {
   public responseData;
   public data;
   public lista_data;
+  public datas;
 
 
   constructor(
@@ -48,8 +49,7 @@ export class CartazPage {
 
   buscaCartaz(datas) {
     this.page_old = this.page;
-    this.navCtrl.push(CartazCinemarkPage, {response: datas});
-    console.log ("log das infos para getprovider",datas)
+    this.navCtrl.push(CartazCinemarkPage, { idCartaz: datas });
   } 
 
   buscaState() {
@@ -100,7 +100,7 @@ export class CartazPage {
   }
 
   buscaData(response: any) {
-    this.ingressocomProvider.getSessionCinemark(response.cityid,response.id,response.corpotarion).subscribe(
+    this.ingressocomProvider.getSessionAll(response.cityid,response.id,response.corpotarion).subscribe(
       data => {
         const response = (data as any);
         const objeto_retorno = JSON.parse(response._body);

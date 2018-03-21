@@ -25,9 +25,14 @@ export class IngressoComProvider {
     }
   }
 
-  getSessionCinemark(cityid,id,corpotarion){
+  getSessionCinemark(cityid,id,corpotarion,data){
+    return this.http.get(this.baseApiIngresso + this.baseApiIngressoCity +`${cityid}` + this.baseApiIngressoTheater + `${id}` + this.baseApiIngressoPartnership + `${corpotarion}` + `?date=${data}`);
+  }
+
+  getSessionAll(cityid,id,corpotarion){
     return this.http.get(this.baseApiIngresso + this.baseApiIngressoCity +`${cityid}` + this.baseApiIngressoTheater + `${id}` + this.baseApiIngressoPartnership + `${corpotarion}`);
   }
+
 
   getSessionCinemark2(){
     return this.http.get(this.baseApiIngresso + this.baseApiIngressoCity +`1` + this.baseApiIngressoTheater + `120` + this.baseApiIngressoPartnership + `cinemark`);

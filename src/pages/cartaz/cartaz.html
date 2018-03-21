@@ -36,7 +36,7 @@
     <ion-item>
         <ion-label>Data</ion-label>
         <ion-select [(ngModel)]="datas" (ionChange)="buscaCartaz($event)" multiple="false">
-            <ion-option *ngFor="let data of lista_data " [value]="cine">{{data.dayOfWeek + ' ' + data.dateFormatted}}</ion-option>
+            <ion-option *ngFor="let data of lista_data " [value]="{cinema:cine, data: data.date}">{{data.dayOfWeek + ' ' + data.dateFormatted}}</ion-option>
         </ion-select>
       </ion-item>
  

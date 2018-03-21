@@ -28,18 +28,18 @@ export class CartazCinemarkPage {
   public isRefreshing: boolean = false;
   public infiniteScroll;
   public filmes;
-  public lista_filme = new Array<any>();
+  public lista_filme;
   public responseDatas;
-  public response;
+  public idCartaz = this.navParams.get("idCartaz")
 
   constructor(
     public navCtrl: NavController, 
-    public navParams: NavParams,
+    private navParams: NavParams,
     private ingressocomProvider: IngressoComProvider,
     public loadingCtrl: LoadingController
   ) {
   }
-
+  
   abreCarregando() {
     this.loader = this.loadingCtrl.create({
       content: "Carregando filmes...",
@@ -47,19 +47,8 @@ export class CartazCinemarkPage {
     this.loader.present();
   }
 
-  fechaCarregando(){
-    this.loader.dismiss();
-  }
-
-  doRefresh(refresher) {
-    this.refresher = refresher;
-    this.isRefreshing = true;
-
-    this.carregarFilmes("response");
-  }
-
 ionViewDidEnter() {
-  this.carregarFilmes("response");
+  this.carregarFilmes("idCartaz");
 }
 
 abrirDetalhes(filme){
@@ -67,29 +56,20 @@ abrirDetalhes(filme){
   this.navCtrl.push(FilmeDetalhesPage, { id: filme.id });
 }
 
-doInfinite(infiniteScroll) {
-  this.page++;
- this.infiniteScroll = infiniteScroll;
- this.carregarFilmes("response");
-}
 
-  carregarFilmes(response: any) {
-    console.log("log do response",response)
-    if (this.page != this.page_old) {
-    this.responseDatas = this.navParams.get("datas");
-    this.ingressocomProvider.getSessionCinemark(response.cityid,response.id,response.corpotarion).subscribe(
+  carregarFilmes(any) {
+    this.ingressocomProvider.getSessionCinemark(this.idCartaz.cinema.cityid,this.idCartaz.cinema.id,this.idCartaz.cinema.corpotarion,this.idCartaz.data).subscribe(
       data => {
         const response = (data as any);
         const objeto_retorno = JSON.parse(response._body);
         this.filmes = objeto_retorno;
-        console.log("log dos filmes", this.filmes)
+        console.log("json do provider da function",objeto_retorno)
 
         if (this.page == 1) {
-          this.lista_filme = objeto_retorno;
+          this.lista_filme = objeto_retorno[0].movies;
         } else {
-          this.lista_filme = this.lista_filme.concat(objeto_retorno);
+          this.lista_filme = this.lista_filme.concat(objeto_retorno[0].movies);
         }
       })
     }
-  }
 }
