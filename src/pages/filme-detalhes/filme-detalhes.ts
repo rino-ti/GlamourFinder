@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { MovieProvider } from '../../providers/movie/movie';
-import { PersonPage } from '../person/person';
+import { IngressoComProvider } from '../../providers/ingresso-com/ingresso-com';
 
 
 /**
@@ -17,45 +16,27 @@ import { PersonPage } from '../person/person';
   templateUrl: 'filme-detalhes.html',
 })
 export class FilmeDetalhesPage {
-  public cast;
-  public castid;
+
   public filme;
   public filmeid;
-  public trailer;
-  public trailerid;
   public page = 1;
   public lista_filmes = new Array<any>();
+  public id = this.navParams.get("id");
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public movieProvider: MovieProvider
+    public ingressocomProvider: IngressoComProvider
   ) {
   }
 
-  abrirDetalhesPerson(cast){
-    this.navCtrl.push(PersonPage, { personid: cast.id });
-  }
-
-  ionViewDidEnter() {
-    this.trailerid = this.navParams.get("id");
-    this.movieProvider.getMovieTrailer(this.trailerid).subscribe(data => {
-      let objeto_retorno = (data as any)._body;
-      this.trailer = JSON.parse(objeto_retorno);
-    }, error => {
-      console.log(error);
-    })
+  ionViewDidEnter(any) {
     this.filmeid = this.navParams.get("id");
-    this.movieProvider.getMovieDetails(this.filmeid).subscribe(data => {
+    console.log("log antes da function",this.id)
+    this.ingressocomProvider.getSessionDetail(this.id).subscribe(data => {
       let objeto_retorno = (data as any)._body;
       this.filme = JSON.parse(objeto_retorno);
-    }, error => {
-      console.log(error);
-    })
-    this.castid = this.navParams.get("id");
-    this.movieProvider.getMovieCast(this.castid).subscribe(data => {
-      let objeto_retorno = (data as any)._body;
-      this.cast = JSON.parse(objeto_retorno);
+      console.log("log delhaes page",this.filme)
     }, error => {
       console.log(error);
     })

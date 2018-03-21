@@ -30,7 +30,9 @@ export class CartazCinemarkPage {
   public filmes;
   public lista_filme;
   public responseDatas;
-  public idCartaz = this.navParams.get("idCartaz")
+  public idCartaz = this.navParams.get("idCartaz");
+  public detalhes;
+  public responseDetalhes;
 
   constructor(
     public navCtrl: NavController, 
@@ -51,9 +53,10 @@ ionViewDidEnter() {
   this.carregarFilmes("idCartaz");
 }
 
-abrirDetalhes(filme){
+abrirDetalhes(response){
   this.page_old = this.page;
-  this.navCtrl.push(FilmeDetalhesPage, { id: filme.id });
+  this.navCtrl.push(FilmeDetalhesPage);
+  console.log("id do filme no cartaz para detalhes", response)
 }
 
 

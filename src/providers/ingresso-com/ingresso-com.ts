@@ -15,6 +15,8 @@ export class IngressoComProvider {
   private baseApiIngressoCity = "/sessions/city/"
   private baseApiIngressoTheater = "/theater/"
   private baseApiIngressoPartnership = "/partnership/"
+  private baseApiIngressoDate = "?date="
+  private baseApiIngressoEvent = "/events/"
 
   constructor(public http: Http,
     private _plataform: Platform
@@ -26,16 +28,15 @@ export class IngressoComProvider {
   }
 
   getSessionCinemark(cityid,id,corpotarion,data){
-    return this.http.get(this.baseApiIngresso + this.baseApiIngressoCity +`${cityid}` + this.baseApiIngressoTheater + `${id}` + this.baseApiIngressoPartnership + `${corpotarion}` + `?date=${data}`);
+    return this.http.get(this.baseApiIngresso + this.baseApiIngressoCity +`${cityid}` + this.baseApiIngressoTheater + `${id}` + this.baseApiIngressoPartnership + `${corpotarion}` + this.baseApiIngressoDate + `${data}`);
   }
 
   getSessionAll(cityid,id,corpotarion){
     return this.http.get(this.baseApiIngresso + this.baseApiIngressoCity +`${cityid}` + this.baseApiIngressoTheater + `${id}` + this.baseApiIngressoPartnership + `${corpotarion}`);
   }
 
-
-  getSessionCinemark2(){
-    return this.http.get(this.baseApiIngresso + this.baseApiIngressoCity +`1` + this.baseApiIngressoTheater + `120` + this.baseApiIngressoPartnership + `cinemark`);
+  getSessionDetail(id){
+    return this.http.get(this.baseApiIngresso + this.baseApiIngressoEvent + `${id}`);
   }
 
   getStates(){
