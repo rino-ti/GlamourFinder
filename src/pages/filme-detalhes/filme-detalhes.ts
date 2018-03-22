@@ -14,14 +14,20 @@ import { IngressoComProvider } from '../../providers/ingresso-com/ingresso-com';
 @Component({
   selector: 'page-filme-detalhes',
   templateUrl: 'filme-detalhes.html',
+  providers: [
+    IngressoComProvider
+  ]
 })
 export class FilmeDetalhesPage {
 
+  public page = 1;
+  public page_old = 0;
+  public loader;
+  public loadingCtrl;
   public filme;
   public filmeid;
-  public page = 1;
-  public lista_filmes = new Array<any>();
-  public id = this.navParams.get("id");
+  public lista_filme = new Array<any>();
+  public idFilmes = this.navParams.get("idFilmes");
 
   constructor(
     public navCtrl: NavController,
@@ -29,16 +35,41 @@ export class FilmeDetalhesPage {
     public ingressocomProvider: IngressoComProvider
   ) {
   }
+    
+  abreCarregando() {
+    this.loader = this.loadingCtrl.create({
+      content: "Carregando filmes...",
+    });
+    this.loader.present();
+  }
 
-  ionViewDidEnter(any) {
-    this.filmeid = this.navParams.get("id");
-    console.log("log antes da function",this.id)
-    this.ingressocomProvider.getSessionDetail(this.id).subscribe(data => {
+ionViewDidEnter() {
+  this.carregaFilmesDetails("idFilmes");
+}
+
+abrirDetalhes(filmes){
+  this.page_old = this.page;
+  this.navCtrl.push(FilmeDetalhesPage, {idFilmes:filmes});
+  console.log("id do filme no cartaz para detalhes", filmes)
+}
+
+
+  carregaFilmesDetails(any) {
+    this.filmeid = this.navParams.get("idFilmes");
+    this.ingressocomProvider.getSessionDetail(this.idFilmes).subscribe(data => {
       let objeto_retorno = (data as any)._body;
-      this.filme = JSON.parse(objeto_retorno);
-      console.log("log delhaes page",this.filme)
+      this.filme = JSON.parse(objeto_retorno)
+
+
+      if (this.page == 1) {
+        this.lista_filme = objeto_retorno;
+      } else {
+        this.lista_filme = this.lista_filme.concat(objeto_retorno);
+      }
+
     }, error => {
       console.log(error);
+
     })
   } 
 }

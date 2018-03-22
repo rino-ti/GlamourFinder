@@ -53,10 +53,10 @@ ionViewDidEnter() {
   this.carregarFilmes("idCartaz");
 }
 
-abrirDetalhes(response){
+abrirDetalhes(filmes){
   this.page_old = this.page;
-  this.navCtrl.push(FilmeDetalhesPage);
-  console.log("id do filme no cartaz para detalhes", response)
+  this.navCtrl.push(FilmeDetalhesPage, {idFilmes:filmes});
+  console.log("id do filme no cartaz para detalhes", filmes)
 }
 
 

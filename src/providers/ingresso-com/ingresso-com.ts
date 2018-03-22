@@ -35,8 +35,8 @@ export class IngressoComProvider {
     return this.http.get(this.baseApiIngresso + this.baseApiIngressoCity +`${cityid}` + this.baseApiIngressoTheater + `${id}` + this.baseApiIngressoPartnership + `${corpotarion}`);
   }
 
-  getSessionDetail(id){
-    return this.http.get(this.baseApiIngresso + this.baseApiIngressoEvent + `${id}`);
+  getSessionDetail(idFilmes){
+    return this.http.get(this.baseApiIngresso + this.baseApiIngressoEvent + `${idFilmes}`);
   }
 
   getStates(){
