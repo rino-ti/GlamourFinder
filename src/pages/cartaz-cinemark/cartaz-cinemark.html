@@ -21,12 +21,12 @@
     </ion-item>
 
     <img [src]="filmes.images[0].url">
-
+    <br>
+    <h2 align="center">Salas Disponíveis</h2>
     <ion-card *ngFor="let filmes of lista_rooms">
-        <ion-card-content>
-          <h2>Salas Disponíveis</h2>
+          <ion-card ion-button (tap)="popUp($event)">
       <p>{{ filmes.name }}</p>
-      </ion-card-content>
+      </ion-card>
     </ion-card>
 
     <ion-row>
