@@ -22,17 +22,26 @@
 
     <img [src]="filmes.images[0].url">
 
-    <ion-card-content>
-      <p>{{ cinemark }}</p>
-    </ion-card-content>
+    <ion-card *ngFor="let filmes of lista_rooms">
+        <ion-card-content>
+          <h2>Salas Disponíveis</h2>
+      <p>{{ filmes.name }}</p>
+      </ion-card-content>
+    </ion-card>
 
     <ion-row>
       <ion-col>
-        <button ion-button icon-left clear small>
+        <button ion-button icon-left clear small (tap)="likeEvent($event)">
           <ion-icon name="thumbs-up"></ion-icon>
-          <div class="login_like">{{ data }}</div>
+          <div>{{ tap }} Likes</div>
         </button>
       </ion-col>
+      <ion-col>
+      <button ion-button icon-left clear small (tap)="deslikeEvent($event)">
+        <ion-icon name="thumbs-down" [style.color]="'#ff0000'"></ion-icon>
+        <div [style.color]="'#ff0000'">{{ deslike }} Deslike</div>
+      </button>
+    </ion-col>
       <ion-col>
         <button ion-button icon-left clear small>
           <ion-icon name="text"></ion-icon>

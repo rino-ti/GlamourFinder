@@ -33,6 +33,11 @@ export class CartazCinemarkPage {
   public idCartaz = this.navParams.get("idCartaz");
   public detalhes;
   public responseDetalhes;
+  public lista_rooms;
+
+
+  public deslike: number = 0;
+  public tap: number = 0;
 
   constructor(
     public navCtrl: NavController, 
@@ -40,6 +45,14 @@ export class CartazCinemarkPage {
     private ingressocomProvider: IngressoComProvider,
     public loadingCtrl: LoadingController
   ) {
+  }
+
+ 
+  deslikeEvent(e) {
+    this.deslike++
+  }
+  likeEvent(e) {
+    this.tap++
   }
   
   abreCarregando() {
@@ -56,7 +69,6 @@ ionViewDidEnter() {
 abrirDetalhes(filmes){
   this.page_old = this.page;
   this.navCtrl.push(FilmeDetalhesPage, {idFilmes:filmes});
-  console.log("id do filme no cartaz para detalhes", filmes)
 }
 
 
@@ -66,13 +78,20 @@ abrirDetalhes(filmes){
         const response = (data as any);
         const objeto_retorno = JSON.parse(response._body);
         this.filmes = objeto_retorno;
-        console.log("json do provider da function",objeto_retorno)
 
         if (this.page == 1) {
           this.lista_filme = objeto_retorno[0].movies;
         } else {
           this.lista_filme = this.lista_filme.concat(objeto_retorno[0].movies);
         }
+        console.log("lista_filme",this.lista_filme)
+
+        if (this.page == 1) {
+          this.lista_rooms = this.lista_filme[0].rooms;
+        } else {
+          this.lista_rooms = this.lista_rooms.concat(this.lista_filme[0].rooms);
+        }
+        console.log("lista_rooms",this.lista_rooms)
       })
     }
 }
