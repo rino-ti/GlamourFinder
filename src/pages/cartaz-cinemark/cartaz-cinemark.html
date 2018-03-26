@@ -22,10 +22,10 @@
 
     <img [src]="filmes.images[0].url">
     <br>
-    <h2 align="center">Salas Disponíveis</h2>
-    <ion-card *ngFor="let filmes of lista_rooms">
-          <ion-card ion-button (tap)="popUp($event)">
-      <p>{{ filmes.name }}</p>
+    <h2 align="center">Sessões Disponíveis</h2>
+    <ion-card *ngFor="let room of filmes.rooms">
+          <ion-card *ngFor="let session of room.sessions" ion-button (tap)="popUp(session)">
+      <p>{{ room.name }}</p>
       </ion-card>
     </ion-card>
 

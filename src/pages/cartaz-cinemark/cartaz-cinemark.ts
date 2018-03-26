@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { FilmeDetalhesPage } from '../filme-detalhes/filme-detalhes';
 import { IngressoComProvider } from '../../providers/ingresso-com/ingresso-com';
+import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the CartazCinemarkPage page.
@@ -43,7 +44,8 @@ export class CartazCinemarkPage {
     public navCtrl: NavController, 
     private navParams: NavParams,
     private ingressocomProvider: IngressoComProvider,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController
   ) {
   }
 
@@ -93,5 +95,15 @@ abrirDetalhes(filmes){
         }
         console.log("lista_rooms",this.lista_rooms)
       })
+    }
+
+    popUp(session){
+      let alert = this.alertCtrl.create({
+        subTitle: '<div>' +
+        '    <h2 align="center">Horarios Disponíveis</h2>' + session.time + '</ion-card></ion-card>' +
+        '</div>',
+        buttons: ['OK']
+      });
+      alert.present();
     }
 }
