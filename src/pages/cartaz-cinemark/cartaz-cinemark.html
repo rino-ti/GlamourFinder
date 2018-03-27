@@ -23,13 +23,15 @@
     <img [src]="filmes.images[0].url">
     <br>
     <h2 align="center">Sessões Disponíveis</h2>
-    <ion-card *ngFor="let room of filmes.rooms">
-          <ion-card *ngFor="let session of room.sessions" ion-button (tap)="popUp(session)">
-      <p>{{ room.name }}</p>
-      </ion-card>
-    </ion-card>
+    <div *ngFor="let room of filmes.rooms">
+      <div>{{ room.name }}</div>
+          <button ion-button round *ngFor="let session of room.sessions" (tap)="popUp(session,filmes)">
+            
+      <h3>{{ session.time }}<p style="color:rgb(255, 255, 255);">{{ session.type[0] }}</h3>
+          </button>
+          </div>
 
-    <ion-row>
+    <ion-row> 
       <ion-col>
         <button ion-button icon-left clear small (tap)="likeEvent($event)">
           <ion-icon name="thumbs-up"></ion-icon>
@@ -49,9 +51,11 @@
         </button>
       </ion-col>
       <ion-col center text-center>
+         <ion-icon name="pricetag" *ngFor="let genre of filmes.genres">
         <ion-note>
-          11h ago
+          {{ genre }}
         </ion-note>
+      </ion-icon>
       </ion-col>
     </ion-row>
     <button ion-button block (click)="abrirDetalhes(filmes.id)">Detalhes</button>

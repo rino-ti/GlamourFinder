@@ -97,10 +97,10 @@ abrirDetalhes(filmes){
       })
     }
 
-    popUp(session){
+    popUp(session,filmes){
       let alert = this.alertCtrl.create({
         subTitle: '<div>' +
-        '    <h2 align="center">Horarios Disponíveis</h2>' + session.time + '</ion-card></ion-card>' +
+        '    <h2 align="center">Horario</h2>' + session.time + '<p>' + '<h2 algin="center">Valor + taxas web:</h2>' + 'R$' + session.price + '<p>' + '<h2>Classificação:</h2>' + '<p>' + filmes.contentRating +
         '</div>',
         buttons: ['OK']
       });
