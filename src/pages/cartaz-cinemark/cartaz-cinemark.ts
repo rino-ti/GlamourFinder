@@ -100,7 +100,7 @@ abrirDetalhes(filmes){
     popUp(session,filmes){
       let alert = this.alertCtrl.create({
         subTitle: '<div>' +
-        '    <h2 align="center">Horario</h2>' + session.time + '<p>' + '<h2 algin="center">Valor + taxas web:</h2>' + 'R$' + session.price + '<p>' + '<h2>Classificação:</h2>' + '<p>' + filmes.contentRating +
+        '    <h2 align="center">Horario</h2>' + session.time + '<p>' + '<h2 algin="center">Valor + taxas web:</h2>' + 'R$' + session.price + '<p>' + '<h2>Classificação:</h2>' + '<p>' + filmes.contentRating + '<p>' + '<h2 algin="center">Distribuidora</h2>' + filmes.distributor + '<p>' + '<h2 algin="center">Duração:</h2>' + filmes.duration + 'min' +
         '</div>',
         buttons: ['OK']
       });

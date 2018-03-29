@@ -39,6 +39,9 @@ export class SearchPage {
 
 
   fechaCarregando(){
+    this.loader = this.loadingCtrl.create({
+
+    });
     this.loader.dismiss();
   }
 
